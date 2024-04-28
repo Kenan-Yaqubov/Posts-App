@@ -1,0 +1,19 @@
+a.post {
+  text-decoration: none;
+  color: black;
+  background-color: #f1f1f1;
+}
+
+.postsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+a.post:hover {
+    background-color: #ccc;
+}
+
+div.name {
+    margin: 20px;
+}

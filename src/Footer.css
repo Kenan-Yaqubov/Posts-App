@@ -1,0 +1,13 @@
+footer {
+    border-top: 1px solid #ccc;
+    padding: 16px;
+    text-align: center;
+}
+
+footer>p {
+    margin: 0;
+}
+
+footer>p>span{
+    font-weight: bold;
+}

@@ -1,0 +1,19 @@
+a.user {
+  text-decoration: none;
+  color: black;
+  background-color: #f1f1f1;
+}
+
+div.userName {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+a.user:hover {
+  background-color: #ccc;
+}
+
+div.userName {
+  margin: 20px;
+}

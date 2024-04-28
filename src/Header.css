@@ -1,0 +1,23 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+    border-bottom: 1px solid #ccc;
+    font-size: 20px;
+}
+
+header > div.logo {
+    letter-spacing: 4px;
+    user-select: none;
+    cursor: pointer;
+}
+
+header > div.menuToggle {
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    header > div.menuToggle {
+        display: none;
+    }
+}

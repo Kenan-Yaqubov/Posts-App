@@ -1,0 +1,9 @@
+div.commentsContainer>div{
+    background-color: #ccc;
+    margin: 20px;
+    cursor: pointer;
+}
+
+div.commentsContainer>div>p{
+    padding: 10px;
+}
