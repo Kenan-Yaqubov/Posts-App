@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Comments from "./Comments";
 
 function PostBodyRendering() {
   let [currentPost, setCurrentPost] = useState();
+
   const { id } = useParams();
   useEffect(() => {
     if (isFinite(id)) {
@@ -20,19 +21,22 @@ function PostBodyRendering() {
     }
   }, []);
 
+
   return (
     <div>
       {currentPost ? (
         <>
-          <p>
-            <b>Title: </b>
-            {currentPost.title}
-          </p>
+          <Link to={`/users/${currentPost.userId}`} key={currentPost.id}>
+            <p>
+              <b>Title: </b>
+              {currentPost.title}
+            </p>
+          </Link>
           <p>
             <b>Body: </b>
             {currentPost.body}
           </p>
-          <Comments postID={id}/>
+          <Comments postID={id} />
         </>
       ) : (
         "empty..."

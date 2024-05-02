@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import './Comments.css'
 
 function Comments({ postID }) {
@@ -23,9 +22,7 @@ function Comments({ postID }) {
     <div className="commentsContainer">
       {currentComments ? (
         currentComments.map((comment) => (
-          <Link to={`/users/${comment.postId}`} key={comment.id}>
             <p>{comment.body}</p>
-          </Link>
         ))
       ) : (
         <p>No comments...</p>

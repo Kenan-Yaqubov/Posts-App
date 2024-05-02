@@ -4,9 +4,12 @@ import "./User.css";
 function User(props) {
   let { data } = props;
   return (
-    <Link to={`${data.id}`} className="user">
-      <div className="userName">{data.username}</div>
-    </Link>
+    <>
+      <Link to={`${data.id}`} className="user">
+        <div className="userName">{data.username}</div>
+      </Link>
+
+    </>
   );
 }
 
