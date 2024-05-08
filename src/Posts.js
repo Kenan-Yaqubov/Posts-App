@@ -1,31 +1,31 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Post from "./Post";
 import "./Post.css";
 import Spinner from "./Spinner";
+import MyContext from "./MyContext";
 
 function Posts() {
-  let [posts, setPosts] = useState([]);
-  let [loading, setLodaing] = useState(false);
+let {posts, postsLoading, setPosts, setPostsLoading} = useContext(MyContext)
 
   useEffect(() => {
-    setLodaing(true);
+    setPostsLoading(true);
     fetch("https://jsonplaceholder.typicode.com/posts", {
       method: "GET",
     })
       .then((response) => response.json())
       .then((data) => {
         setPosts(data);
-        setLodaing(false);
+        setPostsLoading(false);
       })
       .catch((err) => {
         console.log(err);
-        setLodaing(true);
+        setPostsLoading(true);
       });
   }, []);
 
   return (
     <div className="postsContainer">
-      {loading ? (
+      {postsLoading ? (
         <Spinner />
       ) : posts.length ? (
         posts.map((post) => <Post data={post} key={post.id}></Post>)

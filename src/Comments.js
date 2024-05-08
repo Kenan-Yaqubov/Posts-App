@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import MyContext from "./MyContext";
 import './Comments.css'
 
 function Comments({ postID }) {
-  const [currentComments, setCurrentComments] = useState([]);
-
+  let {comments, setComments}  = useContext(MyContext)
   const numPostId = Number(postID);
 
   useEffect(() => {
@@ -11,7 +11,7 @@ function Comments({ postID }) {
       .then((response) => response.json())
       .then((data) => {
         const filteredComments = data.filter(comment => comment.postId === numPostId);
-        setCurrentComments(filteredComments); 
+        setComments(filteredComments); 
       })
       .catch((err) => {
         console.log(err);
@@ -20,8 +20,8 @@ function Comments({ postID }) {
 
   return (
     <div className="commentsContainer">
-      {currentComments ? (
-        currentComments.map((comment) => (
+      {comments ? (
+        comments.map((comment) => (
             <p>{comment.body}</p>
         ))
       ) : (

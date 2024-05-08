@@ -1,31 +1,32 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import User from "./User";
+import MyContext from "./MyContext";
 import "./User.css";
 import Spinner from "./Spinner";
 
 function Users() {
-  let [users, setUsers] = useState([]);
-  let [loading, setLodaing] = useState(false);
+  let { users, setUsers, usersLoading, setUsersLoading } =
+    useContext(MyContext);
 
   useEffect(() => {
-    setLodaing(true);
+    setUsersLoading(true);
     fetch("https://jsonplaceholder.typicode.com/users", {
       method: "GET",
     })
       .then((response) => response.json())
       .then((data) => {
         setUsers(data);
-        setLodaing(false);
+        setUsersLoading(false);
       })
       .catch((err) => {
         console.log(err);
-        setLodaing(true);
+        setUsersLoading(true);
       });
   }, []);
 
   return (
     <div className="usersContainer">
-      {loading ? (
+      {usersLoading ? (
         <Spinner />
       ) : users.length ? (
         users.map((user) => <User data={user} key={user.id}></User>)
