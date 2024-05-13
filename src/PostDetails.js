@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
+import { setCurrentPost } from "./redux/slices/postSlice";
 import { useParams, Link } from "react-router-dom";
 import Comments from "./Comments";
+import { useDispatch, useSelector } from "react-redux";
 
 function PostBodyRendering() {
-  let [currentPost, setCurrentPost] = useState();
+  // let [currentPost, setCurrentPost] = useState();
+  const { currentPost } = useSelector((state) => state.post);
+  const dispatch = useDispatch();
 
   const { id } = useParams();
   useEffect(() => {
@@ -13,13 +17,13 @@ function PostBodyRendering() {
       })
         .then((response) => response.json())
         .then((data) => {
-          setCurrentPost(data);
+          dispatch(setCurrentPost(data));
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  }, []);
+  }, [dispatch, id]);
 
 
   return (

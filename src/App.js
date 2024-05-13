@@ -1,23 +1,24 @@
 import "./App.css";
-import { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Header from "./Header";
 import Aside from "./Aside";
 import Footer from "./Footer";
-import Posts from "./Posts";
+// import Posts from "./Posts";
 import PostBodyRendering from "./PostDetails";
 import MyContext from "./MyContext";
 import Users from "./Users";
 import UserDetails from "./UserDetails";
-
+const Posts = React.lazy(() => import("./Posts.js"));
 
 function App() {
+  
   let [users, setUsers] = useState([]);
   let [usersLoading, setUsersLoading] = useState(false);
   let [posts, setPosts] = useState([]);
   let [postsLoading, setPostsLoading] = useState(false);
   let [comments, setComments] = useState([]);
-
+  
   let varObj = {
     users,
     setUsers,
@@ -30,7 +31,7 @@ function App() {
     comments,
     setComments,
   };
-
+  
   let [isMenuCollapsed, setIsMenuCollapsed] = useState(true);
   function toggleMenu() {
     setIsMenuCollapsed(!isMenuCollapsed);
@@ -51,8 +52,8 @@ function App() {
                     <>
                       <div>{value}</div>
                       <button
-                        onClick={() => {
-                          dispatch(increment());
+                      onClick={() => {
+                        dispatch(increment());
                         }}
                       >
                         Increase

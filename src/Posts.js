@@ -1,36 +1,53 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setPosts,
+  togglePostsLoading,
+  setCreatePost,
+} from "./redux/slices/postSlice";
 import Post from "./Post";
-import "./Post.css";
 import Spinner from "./Spinner";
-import MyContext from "./MyContext";
 
 function Posts() {
-let {posts, postsLoading, setPosts, setPostsLoading} = useContext(MyContext)
+  const { posts, postsLoading, postCreated } = useSelector(
+    (state) => state.post
+  );
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setPostsLoading(true);
-    fetch("https://jsonplaceholder.typicode.com/posts", {
-      method: "GET",
-    })
+    dispatch(togglePostsLoading());
+    fetch("https://jsonplaceholder.typicode.com/posts")
       .then((response) => response.json())
       .then((data) => {
-        setPosts(data);
-        setPostsLoading(false);
+        dispatch(setPosts(data));
+        localStorage.setItem("allPosts", JSON.stringify(posts));
+        dispatch(togglePostsLoading());
       })
       .catch((err) => {
         console.log(err);
-        setPostsLoading(true);
+        dispatch(togglePostsLoading());
       });
-  }, []);
+  }, [dispatch]);
+
+  const createPost = () => {};
 
   return (
     <div className="postsContainer">
       {postsLoading ? (
         <Spinner />
       ) : posts.length ? (
-        posts.map((post) => <Post data={post} key={post.id}></Post>)
+        posts.map((post) => <Post data={post} key={post.id} />)
       ) : (
         "Empty..."
+      )}
+      <button onClick={dispatch(setCreatePost(true))}>Create Post</button>;
+      {postCreated ? (
+        <>
+          <input type="text" />
+          <button onClick={createPost}>Create</button>
+        </>
+      ) : (
+        <></>
       )}
     </div>
   );
